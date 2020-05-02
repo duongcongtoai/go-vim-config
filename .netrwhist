@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/var/www/go/grql'
+let g:netrw_dirhist_4='/home/toai/go/bin'
+let g:netrw_dirhist_3='/var/www/go/grql'
+let g:netrw_dirhist_2='/var/www/go/grql/graph'
+let g:netrw_dirhist_1='/var/www/go/grql'
