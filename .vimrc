@@ -4,9 +4,8 @@ Plug 'roxma/nvim-yarp'
 
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
-set tabstop=4
-set shiftwidth=4
-set expandtab
+autocmd BufNewFile, BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2
+
 set completeopt=noinsert,menuone,noselect
 
 Plug 'ncm2/ncm2-bufword'
@@ -22,22 +21,6 @@ Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
-"Autocomplete"
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<S-q>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-"NerdTree"
 map <C-n> :NERDTreeToggle<CR>
 
 set autowrite
@@ -77,7 +60,21 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
