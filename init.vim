@@ -19,10 +19,18 @@ Plug 'SirVer/ultisnips'
 Plug 'AndrewRadev/splitjoin.vim' 
 Plug 'dracula/vim'
 Plug 'preservim/nerdtree'
+Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
+set clipboard+=unnamedplus
+
+"Comment"
+nmap <c-_> gc
+vmap <c-_> gc
+
 "Autocomplete"
+
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<S-q>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
