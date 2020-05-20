@@ -12,7 +12,7 @@ set completeopt=noinsert,menuone,noselect
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'honza/vim-snippets'
-Plug 'townk/vim-autoclose'
+Plug 'Raimondi/delimitMate'
 Plug 'brooth/far.vim'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'SirVer/ultisnips'
@@ -24,6 +24,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 set clipboard+=unnamedplus
+ 
 
 "Comment"
 nmap <c-_> gc
