@@ -10,6 +10,8 @@ set expandtab
 set completeopt=noinsert,menuone,noselect
 
 Plug 'ncm2/ncm2-bufword'
+Plug 'jistr/vim-nerdtree-tabs'
+"vim-go"
 Plug 'ncm2/ncm2-path'
 Plug 'honza/vim-snippets'
 Plug 'Raimondi/delimitMate'
@@ -22,6 +24,12 @@ Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
+
+
+
+"Nerdetreetabs"
+map <C-l> :tabnext<CR>
+map <C-h> :tabprevious<CR>
 
 set clipboard+=unnamedplus
  
