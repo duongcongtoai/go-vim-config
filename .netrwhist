@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/toai/.config/nvim'
 let g:netrw_dirhist_6='/var/www/go/grql/graph'
 let g:netrw_dirhist_5='/var/www/go/grql'
 let g:netrw_dirhist_4='/home/toai/go/pkg/mod/github.com/99designs/gqlgen@v0.11.3/graphql/handler'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_1='/var/www/go'
 let g:netrw_dirhist_0='/home/toai/go/src/github.com/fatih/vim-go-tutorial'
 let g:netrw_dirhist_9='/var/www/go/grql'
 let g:netrw_dirhist_8='/var/www/go/grql/graph'
-let g:netrw_dirhist_7='/var/www/go/grql'
