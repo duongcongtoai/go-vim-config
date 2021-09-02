@@ -1,5 +1,4 @@
 " Fish doesn't play all that well with others
-set clipboard=unnamedplus 
 set shell=/bin/bash
 let mapleader = "\<Space>"
 
@@ -17,6 +16,10 @@ call plug#begin()
 Plug 'ciaranm/securemodelines'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-sneak'
+Plug 'b3nj5m1n/kommentary'
+Plug 'tmsvg/pear-tree'
+
+
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -230,6 +233,7 @@ set printoptions=paper:letter
 " Always draw sign column. Prevent buffer moving when adding/deleting sign.
 set signcolumn=yes
 
+
 " Settings needed for .lvimrc
 set exrc
 set secure
@@ -435,7 +439,6 @@ imap <F1> <Esc>
 " Prevent accidental writes to buffers that shouldn't be edited
 autocmd BufRead *.orig set readonly
 autocmd BufRead *.pacnew set readonly
-
 " Leave paste mode when leaving insert mode
 autocmd InsertLeave * set nopaste
 
@@ -468,3 +471,16 @@ autocmd Filetype html,xml,xsl,php source ~/.config/nvim/scripts/closetag.vim
 if has('nvim')
 	runtime! plugin/python_setup.vim
 endif
+
+" netrw
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore
+augroup END
+
+
