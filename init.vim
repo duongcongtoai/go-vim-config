@@ -20,6 +20,8 @@ Plug 'justinmk/vim-sneak'
 Plug 'b3nj5m1n/kommentary'
 Plug 'tmsvg/pear-tree'
 Plug 'preservim/nerdtree'
+
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -66,11 +68,11 @@ endif
 set background=dark
 let base16colorspace=256
 let g:base16_shell_path="~/dev/others/base16/templates/shell/scripts/"
-colorscheme base16-gruvbox-dark-hard
+colorscheme tokyonight
 syntax on
 hi Normal ctermbg=NONE
 " Brighter comments
-call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
+" call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
 " https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
 " call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
 
