@@ -1,4 +1,8 @@
 {
-  "rust-analyzer.cargo.allFeatures": true,
-  "rust-analyzer.serverPath": "/home/toai/.cargo/bin/rust-analyzer"
+  "rust-analyzer.serverPath": "/home/toai/.cargo/bin/rust-analyzer",
+  "coc.preferences.hoverTarget":"float",
+  "coc.preferences.colorSupport": true,
+  "coc.preferences.bracketEnterImprove": true,
+  "suggest.noselect": false,
+  "diagnostic.locationlist": false
 }
