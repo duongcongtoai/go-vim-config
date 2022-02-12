@@ -28,7 +28,30 @@ Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 Plug 'chriskempson/base16-vim'
+Plug 'projekt0n/github-nvim-theme'
 
+packadd! termdebug
+nmap <leader>dd :Termdebug<space>
+nmap <silent> <leader>dD :call TermDebugSendCommand('quit')<cr>:Gdb<cr>y<cr>
+nmap <leader>dr :Run<cr>
+nmap <leader>dR :Stop<cr>
+nmap <leader>db :Break<cr>
+nmap <leader>dB :Clear<cr>
+nmap <leader>ds :Step<cr>
+nmap <leader>dn :Over<cr>
+nmap <leader>df :Finish<cr>
+nmap <leader>dc :Continue<cr>
+nmap <leader>dp :Evaluate<cr>
+nmap <leader>de :Evaluate<space>
+nmap <leader>dl :call TermDebugSendCommand('info locals')<cr>
+nmap <leader>da :call TermDebugSendCommand('info args')<cr>
+let g:termdebug_wide=1
+
+tnoremap <Esc> <C-\><C-n>
+let g:termdebugger="rust-gdb"
+autocmd filetype cpp nnoremap <F6> :Termdebug %:r<CR><c-w>2j<c-w>L
+
+Plug 'mfussenegger/nvim-dap'
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -51,7 +74,10 @@ Plug 'plasticboy/vim-markdown'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 
-
+" nerdtree config 
+" let NERDTreeMapOpenInTab='<ENTER>'
+nnoremap <C-l> gt
+nnoremap <C-h> gT
 
 
 call plug#end()
@@ -63,21 +89,22 @@ if has('nvim')
 end
 
 " deal with colors
-if !has('gui_running')
-  set t_Co=256
-endif
-if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
-  " screen does not (yet) support truecolor
-  set termguicolors
-endif
-set background=dark
-let base16colorspace=256
-let g:base16_shell_path="~/dev/others/base16/templates/shell/scripts/"
-colorscheme base16-gruvbox-dark-soft
+" if !has('gui_running')
+"   set t_Co=256
+" endif
+" if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
+"   " screen does not (yet) support truecolor
+"   set termguicolors
+" endif
+" set background=dark
+" let base16colorspace=256
+" let g:base16_shell_path="~/dev/others/base16/templates/shell/scripts/"
+" call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
+
+colorscheme github_dark
 syntax on
 hi Normal ctermbg=NONE
 " Brighter comments
-call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
 " https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
 " call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
 
@@ -299,8 +326,8 @@ lnoremap <C-k> <Esc>
 tnoremap <C-k> <Esc>
 
 " Ctrl+h to stop searching
-vnoremap <C-h> :nohlsearch<cr>
-nnoremap <C-h> :nohlsearch<cr>
+" vnoremap <C-h> :nohlsearch<cr>
+" nnoremap <C-h> :nohlsearch<cr>
 
 " Suspend with Ctrl+f
 inoremap <C-f> :sus<cr>
