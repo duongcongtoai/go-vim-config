@@ -11,6 +11,7 @@ filetype off
 set rtp+=~/dev/others/base16/templates/vim/
 call plug#begin()
 set clipboard=unnamedplus
+ 
 
 " Load plugins
 " VIM enhancements
@@ -21,8 +22,10 @@ Plug 'justinmk/vim-sneak'
 Plug 'b3nj5m1n/kommentary'
 Plug 'tmsvg/pear-tree'
 Plug 'preservim/nerdtree'
-
+Plug 'neovim/nvim-lspconfig'
+Plug 'simrat39/rust-tools.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'neovim/nvim-lspconfig'
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -62,7 +65,7 @@ Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
 
 " Syntactic language support
-Plug 'cespare/vim-toml'
+" Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
 Plug 'rhysd/vim-clang-format'
@@ -72,6 +75,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 
 " nerdtree config 
@@ -393,7 +397,7 @@ imap <Tab> <Plug>(completion_smart_tab)
 imap <S-Tab> <Plug>(completion_smart_s_tab)
 
 " Enable type inlay hints
-" autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
 " Use <TAB> for selections ranges.
 " nmap <silent> <TAB> <Plug>(coc-range-select)
@@ -488,14 +492,9 @@ else
   set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Apply selection
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -633,20 +632,8 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " tree-sitter
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   highlight = {
-"     enable = true,
-"     custom_captures = {
-"       -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-"       ["foo.bar"] = "Identifier",
-"     },
-"     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-"     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-"     -- Using this option may slow down your editor, and you may see some duplicate highlights.
-"     -- Instead of true it can also be a list of languages
-"     additional_vim_regex_highlighting = false,
-"   },
-" }
-" EOF
+lua <<EOF
+require('rust-tools').setup({})
+require('rust-tools').inlay_hints.enable()
+EOF
 
