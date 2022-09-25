@@ -22,10 +22,10 @@ Plug 'justinmk/vim-sneak'
 Plug 'b3nj5m1n/kommentary'
 Plug 'tmsvg/pear-tree'
 Plug 'preservim/nerdtree'
-Plug 'neovim/nvim-lspconfig'
-Plug 'simrat39/rust-tools.nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'simrat39/rust-tools.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'neovim/nvim-lspconfig'
+" Plug 'neovim/nvim-lspconfig'
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -632,8 +632,15 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " tree-sitter
-lua <<EOF
-require('rust-tools').setup({})
-require('rust-tools').inlay_hints.enable()
-EOF
+" lua <<EOF
+" require('rust-tools').setup({
+" 	tools ={
+" 		inlay_hints = {
+"       			highlight = "Red",
+" 		}
+" 	}
+
+" })
+" require('rust-tools').inlay_hints.enable()
+" EOF
 
