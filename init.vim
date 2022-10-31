@@ -10,6 +10,7 @@ set nocompatible
 filetype off
 call plug#begin()
 set clipboard=unnamedplus
+ 
 
 " Load plugins
 " VIM enhancements
@@ -22,7 +23,10 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'tmsvg/pear-tree'
 Plug 'preservim/nerdtree'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'simrat39/rust-tools.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'neovim/nvim-lspconfig'
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -63,7 +67,7 @@ Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
 
 " Syntactic language support
-Plug 'cespare/vim-toml'
+" Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
 Plug 'rhysd/vim-clang-format'
@@ -72,6 +76,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 
 " nerdtree config 
@@ -386,11 +391,11 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " use <Tab> as trigger keys
-imap <Tab> <Plug>(completion_smart_tab)
+" imap <Tab> <Plug>(completion_smart_tab)
 imap <S-Tab> <Plug>(completion_smart_s_tab)
 
 " Enable type inlay hints
-" autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
 " Use <TAB> for selections ranges.
 " nmap <silent> <TAB> <Plug>(coc-range-select)
@@ -486,14 +491,6 @@ else
 endif
 
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-
 
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
@@ -506,6 +503,10 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <C-g> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<C-g>"
 
+
+
+
+                             
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -627,5 +628,20 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+
+" tree-sitter
+" lua <<EOF
+" require('rust-tools').setup({
+" 	tools ={
+" 		inlay_hints = {
+"       			highlight = "Red",
+" 		}
+" 	}
+
+" })
+" require('rust-tools').inlay_hints.enable()
+" EOF
+
+
 
 
