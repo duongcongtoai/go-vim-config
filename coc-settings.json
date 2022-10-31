@@ -4,10 +4,10 @@
   "coc.preferences.bracketEnterImprove": true,
   "suggest.noselect": false,
   "diagnostic.locationlist": false,
-	"rust-analyzer.cargo.loadOutDirsFromCheck": true,
+"rust-analyzer.cargo.loadOutDirsFromCheck": true,
 "rust-analyzer.cargo.runBuildScripts": true, 
 "rust-analyzer.lruCapacity": 1024, 
 "rust-analyzer.procMacro.enable": true,
-  "rust-analyzer.serverPath": "/home/toai/.cargo/bin/rust-analyzer",
+  "rust-analyzer.server.path": "/home/toai/.cargo/bin/rust-analyzer",
   "rust-analyzer.completion.autoimport.enable": true
 }

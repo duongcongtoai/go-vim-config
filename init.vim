@@ -8,12 +8,12 @@ let mapleader = "\<Space>"
 " Load vundle
 set nocompatible
 filetype off
-set rtp+=~/dev/others/base16/templates/vim/
 call plug#begin()
 set clipboard=unnamedplus
 
 " Load plugins
 " VIM enhancements
+"
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'ciaranm/securemodelines'
 Plug 'editorconfig/editorconfig-vim'
@@ -21,14 +21,15 @@ Plug 'justinmk/vim-sneak'
 Plug 'b3nj5m1n/kommentary'
 Plug 'tmsvg/pear-tree'
 Plug 'preservim/nerdtree'
-
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 Plug 'chriskempson/base16-vim'
-Plug 'projekt0n/github-nvim-theme'
+Plug 'mileszs/ack.vim'
+Plug 'dhruvasagar/vim-table-mode'
 
 packadd! termdebug
 nmap <leader>dd :Termdebug<space>
@@ -66,7 +67,6 @@ Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'rust-lang/rust.vim'
 Plug 'rhysd/vim-clang-format'
-"Plug 'fatih/vim-go'
 Plug 'dag/vim-fish'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -76,6 +76,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " nerdtree config 
 " let NERDTreeMapOpenInTab='<ENTER>'
+"
+let NERDTreeShowHidden=1
 nnoremap <C-l> gt
 nnoremap <C-h> gT
 
@@ -89,26 +91,21 @@ if has('nvim')
 end
 
 " deal with colors
-" if !has('gui_running')
-"   set t_Co=256
-" endif
-" if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
-"   " screen does not (yet) support truecolor
-"   set termguicolors
-" endif
-" set background=dark
-" let base16colorspace=256
-" let g:base16_shell_path="~/dev/others/base16/templates/shell/scripts/"
-" call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
-
-colorscheme github_dark
+if !has('gui_running')
+  set t_Co=256
+endif
+if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
+  " screen does not (yet) support truecolor
+  set termguicolors
+endif
+let base16colorspace=256
+let g:base16_shell_path="~/dev/others/base16/templates/shell/scripts/"
+colorscheme tokyonight-night
 syntax on
 hi Normal ctermbg=NONE
-" Brighter comments
-" https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
-" call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
 
-" LSP configuration
+set background=dark
+
 
 
 
@@ -488,19 +485,6 @@ else
   set signcolumn=yes
 endif
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -509,10 +493,18 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <C-g> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<C-g>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -632,21 +624,8 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-" tree-sitter
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   highlight = {
-"     enable = true,
-"     custom_captures = {
-"       -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-"       ["foo.bar"] = "Identifier",
-"     },
-"     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-"     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-"     -- Using this option may slow down your editor, and you may see some duplicate highlights.
-"     -- Instead of true it can also be a list of languages
-"     additional_vim_regex_highlighting = false,
-"   },
-" }
-" EOF
+
+
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+
 
